@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    img {
+      border-radius: 50%;
+      border: 5px solid transparent;
+    }
+    .oimg {
+      border: 5px solid red;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img class="w-100" src="./imgs/person1.jpg" alt="" />
+        </div>
+        <div class="col">
+          <img class="w-100" src="./imgs/person2.jpg" alt="" />
+        </div>
+        <div class="col">
+          <img class="w-100" src="./imgs/person3.jpg" alt="" />
+        </div>
+        <div class="col">
+          <img class="w-100" src="./imgs/person4.jpg" alt="" />
+        </div>
+        <div class="col">
+          <img class="w-100" src="./imgs/person5.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let img = document.querySelectorAll(".col img");
+      console.log(img);
+
+      for (let i = 0; i < img.length; i++) {
+        img[i].onclick = function () {
+          // 因為不知道誰點擊，所以先清空所有按鈕的樣式
+          for (let j = 0; j < img.length; j++) {
+            img[j].className = "";
+          }
+          this.className = "oimg";
+        };
+      }
+    </script>
+  </body>
+</html>

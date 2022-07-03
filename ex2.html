@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    .col-3 {
+      height: 100px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-3 autobg">box1</div>
+        <div class="col-3 autobg">box2</div>
+        <div class="col-3 autobg">box3</div>
+        <div class="col-3 autobg">box4</div>
+        <div class="col-3 autobg">box5</div>
+        <div class="col-3 autobg">box6</div>
+        <div class="col-3 autobg">box7</div>
+        <div class="col-3 autobg">box8</div>
+        <div class="col-3 autobg">box9</div>
+        <div class="col-3 autobg">box10</div>
+        <div class="col-3 autobg">box11</div>
+        <div class="col-3 autobg">box12</div>
+      </div>
+    </div>
+
+    <script>
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max - 50) + 100);
+      }
+
+      function getRBGA() {
+        return `linear-gradient(135deg, rgba(${getRandomInt(
+          256
+        )},${getRandomInt(256)},${getRandomInt(256)},.5), rgba(${getRandomInt(
+          256
+        )},${getRandomInt(256)},${getRandomInt(256)},.8)`;
+      }
+
+      const elements = document.querySelectorAll(".autobg");
+
+      Array.from(elements).forEach((element, index) => {
+        element.style.backgroundImage = getRBGA();
+      });
+    </script>
+
+    <script>
+      let col = document.querySelectorAll(".col-3");
+
+      // 原生 nextAll() js
+      HTMLElement.prototype.nextAll = function () {
+        var _parent = this.parentElement;
+        var _child = _parent.children;
+        var arr = [];
+        for (var i = _child.length - 1; i >= 0; i--) {
+          var _childI = _child[i];
+          if (_childI == this) {
+            break;
+          }
+          arr.unshift(_childI);
+        }
+        return arr;
+      };
+
+      // 練習題2 我自己的寫法
+      for (let i = 0; i < col.length; i++) {
+        col[i].onclick = function () {
+          this.style.backgroundColor = "red";
+
+          console.log(this.nextAll());
+
+          let aa = this.nextAll();
+
+          for (let i = 0; i < aa.length; i++) {
+            aa[i].style.backgroundColor = "blue";
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

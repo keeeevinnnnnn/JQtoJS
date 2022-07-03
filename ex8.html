@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        margin: 0;
+        height: 300vh;
+      }
+      .wrap {
+        width: 100%;
+        height: 50px;
+        background-color: #ccc;
+        position: fixed;
+        top: 0;
+      }
+
+      .progressBar {
+        height: 100%;
+        width: 50%;
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="progressBar"></div>
+    </div>
+
+    <script>
+      let bodyHeight = document.body.scrollHeight;
+      let windowHeight = window.innerHeight;
+      const bar = document.querySelector(".progressBar");
+
+      // 將目前捲軸位置（this.scrollY）除以 document高度（document.body.scrollHeight） 減 可見視窗高度（window.innerHeight）
+      window.addEventListener("scroll", function () {
+        console.log("bodyHeight", bodyHeight);
+        console.log("windowHeight", windowHeight);
+
+        // 視窗捲動百分比
+        let scorllPercent = (this.scrollY / (bodyHeight - windowHeight)) * 100;
+        console.log("scorllPercent", scorllPercent);
+
+        // 改變進度條的寬度
+        bar.style.width = scorllPercent + "%";
+      });
+    </script>
+  </body>
+</html>

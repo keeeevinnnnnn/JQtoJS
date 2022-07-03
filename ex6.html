@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <style>
+    /* 輪播牆顯示的區塊 */
+    .wrap {
+      width: 800px;
+      height: 400px;
+      overflow: hidden;
+      /* border: 2px solid red; */
+      position: relative;
+    }
+
+    /* 輪播總長 */
+    ul.train {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      width: 500%;
+      /* border: 2px solid rgb(74, 242, 74); */
+      transform: translateX(-0px);
+      transition: 0.5s ease;
+    }
+
+    /* 五個li要等寬，grow = 1 -> 一起變大，所以 flex-basis 先歸零 */
+    .train li {
+      flex-basis: 0;
+      flex-grow: 1;
+      /* border: 2px solid blue; */
+    }
+
+    /* object-fit -> 填滿元素的寬度及高度(維持原比例) */
+    .train li img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider-dots-area {
+      list-style: none;
+      padding: 0;
+      /* margin: 0; */
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .slider-dots-area li {
+      width: 40px;
+      height: 10px;
+      border: 1px solid #fff;
+      margin: 0 5px;
+    }
+
+    .slider-dots-area li:nth-child(0) {
+      background: #fff;
+    }
+  </style>
+
+  <body>
+    <div class="wrap">
+      <ul class="train">
+        <li>
+          <img src="./imgs/slide1.jpg" alt="" />
+        </li>
+        <li>
+          <img src="./imgs/slide2.jpg" alt="" />
+        </li>
+        <li>
+          <img src="./imgs/slide3.jpg" alt="" />
+        </li>
+        <li>
+          <img src="./imgs/slide4.jpg" alt="" />
+        </li>
+        <li>
+          <img src="./imgs/slide5.jpg" alt="" />
+        </li>
+      </ul>
+
+      <ul class="slider-dots-area">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+    <script>
+      const mouse = document.querySelector(".slider-dots-area");
+      const oli = document.querySelectorAll(".slider-dots-area li");
+      const train = document.querySelector(".train");
+
+      for (let i = 0; i < oli.length; i++) {
+        const moveX = i * -800 + "px";
+        oli[i].onmouseover = function () {
+          train.style.transform = `translateX(${moveX})`;
+          for (let j = 0; j < oli.length; j++) {
+            oli[j].style.backgroundColor = "transparent";
+          }
+          this.style.backgroundColor = "white";
+        };
+      }
+    </script>
+  </body>
+</html>

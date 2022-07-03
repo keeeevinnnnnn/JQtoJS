@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
+        integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
+        crossorigin='anonymous' />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        body {
+            height: 600vh;
+        }
+
+        .wrap {
+            margin: 40px auto;
+            width: 800px;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        ul.train {
+            list-style-type: none;
+            padding: 0px;
+            width: 900%;
+            height: 100%;
+            display: flex;
+            transform: translateX(-1600px);
+            transition: transform .5s ease;
+        }
+
+        li {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+
+        li img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .dots {
+            list-style-type: none;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dots li {
+            padding: 20px;
+        }
+
+        .dots button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background-color: #000d;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dots li:first-child button {
+            background-color: #fff;
+        }
+
+        .arrow_right {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 10%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            cursor: pointer;
+            opacity: .6;
+            transition: all .3s ease;
+        }
+
+        .arrow_right:hover {
+            color: white;
+            opacity: 1;
+        }
+
+        .arrow_left {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 10%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            cursor: pointer;
+            opacity: .6;
+            transition: all .3s ease;
+        }
+
+        .arrow_left:hover {
+            color: white;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="train">
+            <li><img src="./imgs/slide4.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide5.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide1.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide2.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide3.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide4.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide5.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide1.jpg" alt="" draggable="false"></li>
+            <li><img src="./imgs/slide2.jpg" alt="" draggable="false"></li>
+        </ul>
+        <ul class="dots">
+            <li><button></button></li>
+            <li><button></button></li>
+            <li><button></button></li>
+            <li><button></button></li>
+            <li><button></button></li>
+        </ul>
+        <button class="arrow_right">
+            <i class="fa-solid fa-angle-right"></i>
+        </button>
+        <button class="arrow_left">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+    </div>
+    <script>
+        let active = 0;
+        let countDown;
+
+        const carousel = document.querySelector(".wrap");
+        const train = document.querySelector(".train");
+        const buttons = document.querySelectorAll(".dots button");
+        const right = document.querySelector(".arrow_right");
+        const left = document.querySelector(".arrow_left");
+
+        //照片普通移動
+        function move() {
+            train.style.transition = "transform .5s ease";
+            train.style.transform = `translateX(${-(active + 2) * 800}px)`;
+            buttons.forEach((item, index) => {
+                if (index === (active + 5) % 5) {
+                    item.style.backgroundColor = "#fff";
+                } else {
+                    item.style.backgroundColor = "#000d";
+                }
+            });
+        }
+
+        //照片在頭尾要無限輪播時候的移動
+        function moveNoTransition(index) {
+            console.log(getComputedStyle(train).transform.split(",")[4]);
+            const trainNowPosition = parseFloat(getComputedStyle(train).transform.split(",")[4]);
+            train.style.transition = "none";
+            train.style.transform = `translateX(${trainNowPosition + 4000 * index}px)`;
+            setTimeout(() => {
+                active = (active + 5) % 5;
+                move();
+            });
+        }
+
+        //點dot直接將active改為指定數字
+        buttons.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                active = index;
+                move();
+            })
+        });
+
+        //下一張
+        function next() {
+            active++;
+            if (active > 4) {
+                moveNoTransition(1);
+            } else {
+                move();
+            }
+        }
+
+        //上一張
+        function pre() {
+            active--;
+            if (active < 0) {
+                moveNoTransition(-1);
+            } else {
+                move();
+            }
+        }
+
+        //點右下一張 點左上一張
+        right.addEventListener("click", next);
+        left.addEventListener("click", pre);
+
+        //每3秒自動下一張
+        function count() {
+            countDown = setInterval(() => {
+                next();
+            }, 3000);
+        };
+        count();
+
+        //只要滑鼠懸停在carousel上就停止自動播放
+        carousel.addEventListener("mouseover", () => {
+            clearInterval(countDown);
+        });
+        
+        carousel.addEventListener("mouseleave", count);
+
+
+        //電腦滑鼠拖曳
+        train.addEventListener("mousedown", mouseBehavior);
+        function mouseBehavior() {
+            clearInterval(countDown);
+            //按下瞬間的滑鼠位置
+            const downPosition = event.pageX;
+            const nowTrainPosition = parseFloat(getComputedStyle(train).transform.split(",")[4]);
+            let dragMove;
+            window.addEventListener("mousemove", pointerMove);
+            function pointerMove() {
+                clearInterval(countDown);
+                //點擊後拖動的距離
+                dragMove = event.pageX - downPosition;
+                train.style.transition = "none";
+                train.style.transform = `translateX(${nowTrainPosition + dragMove}px)`;
+            }
+            //在window放開 要移除mousemove,mouseup監聽
+            window.addEventListener("mouseup", mouseupHandler);
+            function mouseupHandler() {
+                window.removeEventListener("mousemove", pointerMove);
+                window.removeEventListener("mouseup", mouseupHandler);
+                //往左拖曳執行下一張 往右拖曳執行上一張 否則回到原位
+                if (dragMove < 0) {
+                    next();
+                    clearInterval(countDown);
+                    count();
+                } else if (dragMove > 0) {
+                    pre();
+                    clearInterval(countDown);
+                    count();
+                } else {
+                    move();
+                    clearInterval(countDown);
+                    count();
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

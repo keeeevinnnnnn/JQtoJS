@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <style>
+      .fontS {
+        font-size: 0.8rem;
+      }
+
+      .fontM {
+        font-size: 1rem;
+      }
+
+      .fontL {
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="d-flex justify-content-end">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button id="btnS" type="button" class="btn btn-secondary">S</button>
+          <button id="btnM" type="button" class="btn btn-secondary">M</button>
+          <button id="btnL" type="button" class="btn btn-secondary">L</button>
+        </div>
+      </div>
+
+      <h2>jQuery</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ipsum
+        doloribus iusto sapiente repellat perferendis totam autem sequi,
+        reprehenderit repudiandae, impedit soluta quod maiores sint tenetur, aut
+        aperiam? Odio, labore!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ipsum
+        doloribus iusto sapiente repellat perferendis totam autem sequi,
+        reprehenderit repudiandae, impedit soluta quod maiores sint tenetur, aut
+        aperiam? Odio, labore!
+      </p>
+    </div>
+
+    <script>
+      let btnS = document.querySelector("#btnS");
+      let btnM = document.querySelector("#btnM");
+      let btnL = document.querySelector("#btnL");
+      let btn = document.querySelectorAll("button");
+      let p = document.querySelectorAll("p");
+
+      for (let i = 0; i < btn.length; i++) {
+        btn[i].onclick = function () {
+          if (this == btn[0]) {
+            p.forEach(function (e, i) {
+              e.className = "fontS";
+            });
+          }
+
+          if (this == btn[1]) {
+            p.forEach(function (e, i) {
+              e.className = "fontM";
+            });
+          }
+
+          if (this == btn[2]) {
+            p.forEach(function (e, i) {
+              e.className = "fontL";
+            });
+          }
+        };
+      }
+    </script>
+  </body>
+</html>
